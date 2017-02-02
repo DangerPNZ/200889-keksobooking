@@ -6,7 +6,6 @@ var currentActive = document.querySelector('.pin--active');
 // Переменные для диалогового окна
 var dialog = document.querySelector('.dialog');
 var dialogClose = document.querySelector('.dialog__close');
-var invisible;
 
 // Переменные для валидации полей формы
 var title = document.querySelector('#title');
@@ -14,8 +13,12 @@ var price = document.querySelector('#price');
 var address = document.querySelector('#address');
 
 // Переменные для синхронизации полей формы
-var timeOption = document.querySelectorAll('#time option');
-var timeoutOption = document.querySelectorAll('#timeout option');
+var timeOption = document.querySelector('#time');
+var timeoutOption = document.querySelector('#timeout');
+var type = document.querySelector('#type');
+var price = document.querySelector('#price');
+var roomNumber = document.querySelector('#room_number');
+var capacity = document.querySelector('#capacity');
 
 // цикл для переключения активного указателя
 for (var i = 0; i < pin.length; i++) {
@@ -51,14 +54,31 @@ price.max = '1000000';
 address.required = true;
 
 // Синхронизация полей форм
-for (var e = 0; e < timeOption.length; e++) {
-  timeOption[e].value = timeOption[e].innerHTML;
-}
 
-for (var u = 0; u < timeoutOption.length; u++) {
-  timeoutOption[u].value = timeoutOption[u].innerHTML;
-}
+timeOption.addEventListener('change', function (event) {
+  timeoutOption.value = event.target.value;
+});
 
-if (timeOption[1].selected = true) {
-  timeoutOption[1].selected = true;
-}
+timeoutOption.addEventListener('change', function (event) {
+  timeOption.value = event.target.value;
+});
+
+type.addEventListener('change', function (event) {
+  if (price.value === 0) {
+    event.target.value = '2';
+  } else
+  if (price.value >= 1000) {
+    event.target.value = '1';
+  } else
+  if (price.value >= 10000) {
+    event.target.value = '3';
+  }
+});
+
+roomNumber.addEventListener('change', function (event) {
+  capacity.value = event.target.value;
+});
+
+capacity.addEventListener('change', function (event) {
+  roomNumber.value = event.target.value;
+});
