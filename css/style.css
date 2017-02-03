@@ -609,6 +609,10 @@ select option:hover {
     line-height: 16px;
 }
 
+.invisible {
+    display: none;
+}
+
 .pin {
     position: absolute;
 
