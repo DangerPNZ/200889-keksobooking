@@ -75,7 +75,7 @@ var deactivateDialogAndPin = function () {
 };
 
 var activatePin = function (e) {
-  if (event.target.className === 'pin') {
+  if (e.target.className === 'pin') {
     disableActivePin();
     e.target.classList.add('pin--active');
     setDialogClassInvisible('remove');
