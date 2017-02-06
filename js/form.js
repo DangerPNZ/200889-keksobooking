@@ -27,11 +27,11 @@ var ESCAPE_KEY_CODE = 27;
 // DRY или определение функций для дублируемого кода
 
 // Функции для проверки соответствия keyCode
-var deactivatingEvent = function (event) {
-  return event.keyCode && event.keyCode === ESCAPE_KEY_CODE;
+var deactivatingEvent = function (e) {
+  return e.keyCode && e.keyCode === ESCAPE_KEY_CODE;
 };
-var activatingEvent = function (event) {
-  return event.keyCode && event.keyCode === ENTER_KEY_CODE;
+var activatingEvent = function (e) {
+  return e.keyCode && e.keyCode === ENTER_KEY_CODE;
 };
 // функция, находящая элемент с классом pin--active, и, если элемент с таким классом существует, удаляет этот класс у найденого элемента
 var disableActivePin = function () {
@@ -74,10 +74,10 @@ var deactivateDialogAndPin = function () {
   toggleAriaPressed();
 };
 
-var activatePin = function () {
+var activatePin = function (e) {
   if (event.target.className === 'pin') {
     disableActivePin();
-    event.target.classList.add('pin--active');
+    e.target.classList.add('pin--active');
     setDialogClassInvisible('remove');
     // динамическое переключение статуса (aria-pressed) при переключении активного указателя
     toggleAriaPressed();
@@ -88,8 +88,8 @@ var activatePin = function () {
  реализовываем его закрытие по нажатию esc, при этом диалоговое окно может быть не в фокусе
  вместе с этим происходит деактивация активного указателя и переопределение его статуса aria-pressed на false */
 if (!document.querySelector('.invisible')) {
-  document.addEventListener('keydown', function (event) {
-    if (deactivatingEvent(event)) {
+  document.addEventListener('keydown', function (e) {
+    if (deactivatingEvent(e)) {
       disableActivePin();
       setDialogClassInvisible('add');
       // динамическое изменение статуса активного (нажатого) указателя (aria-pressed) при удалении всех активных указателей
@@ -99,33 +99,33 @@ if (!document.querySelector('.invisible')) {
 }
 
 // Активизация активного указателя по клику
-tokyoMap.addEventListener('click', function (event) {
-  if (event.target.tagName === 'IMG') {
+tokyoMap.addEventListener('click', function (e) {
+  if (e.target.tagName === 'IMG') {
     disableActivePin();
-    event.path[1].classList.add('pin--active');
+    e.path[1].classList.add('pin--active');
     setDialogClassInvisible('remove');
     // динамическое переключение статуса (aria-pressed) при переключении активного указателя
     toggleAriaPressed();
   }
-  activatePin();
+  activatePin(e);
 });
 
 // Активизация активного указателя по нажатию клавиши enter
-tokyoMap.addEventListener('keydown', function (event) {
-  if (activatingEvent(event)) {
-    activatePin();
+tokyoMap.addEventListener('keydown', function (e) {
+  if (activatingEvent(e)) {
+    activatePin(e);
   }
 });
 
 
 // закрытие диалогового окна и удаление активного указателя по клику
-dialogClose.addEventListener('click', function (event) {
+dialogClose.addEventListener('click', function (e) {
   deactivateDialogAndPin();
 });
 
 // Закрытие диалогового окна и снятие активного указателя по нажатию escape
-dialogClose.addEventListener('keydown', function (event) {
-  if (activatingEvent(event)) {
+dialogClose.addEventListener('keydown', function (e) {
+  if (activatingEvent(e)) {
     deactivateDialogAndPin();
   }
 });
@@ -144,22 +144,22 @@ address.required = true;
 
 // Синхронизация полей форм
 
-timeOption.addEventListener('change', function (event) {
-  timeoutOption.value = event.target.value;
+timeOption.addEventListener('change', function (e) {
+  timeoutOption.value = e.target.value;
 });
 
-timeoutOption.addEventListener('change', function (event) {
-  timeOption.value = event.target.value;
+timeoutOption.addEventListener('change', function (e) {
+  timeOption.value = e.target.value;
 });
 
-roomNumber.addEventListener('change', function (event) {
-  capacity.value = event.target.value;
+roomNumber.addEventListener('change', function (e) {
+  capacity.value = e.target.value;
 });
 
-capacity.addEventListener('change', function (event) {
-  roomNumber.value = event.target.value;
+capacity.addEventListener('change', function (e) {
+  roomNumber.value = e.target.value;
 });
 
-type.addEventListener('change', function (event) {
-  price.value = event.target.value;
+type.addEventListener('change', function (e) {
+  price.value = e.target.value;
 });
