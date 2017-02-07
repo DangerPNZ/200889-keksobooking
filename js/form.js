@@ -67,7 +67,6 @@ toggleAriaPressed();
 
 // закрытие диалогового окна и удаление активного указателя
 var deactivateDialogAndPin = function () {
-  event.preventDefault();
   disableActivePin();
   setDialogClassInvisible('add');
   // динамическое изменение статуса активного (нажатого) указателя (aria-pressed) при удалении всех активных указателей
