@@ -100,9 +100,9 @@ if (!document.querySelector('.invisible')) {
 
 // Активизация активного указателя по клику
 tokyoMap.addEventListener('click', function (e) {
-  if (e.target.tagName === 'IMG') {
+  if (e.target.className === 'rounded') {
     disableActivePin();
-    e.path[1].classList.add('pin--active');
+    e.target.parentNode.classList.add('pin--active');
     setDialogClassInvisible('remove');
     // динамическое переключение статуса (aria-pressed) при переключении активного указателя
     toggleAriaPressed();
