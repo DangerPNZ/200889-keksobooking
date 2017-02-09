@@ -28,15 +28,10 @@ window.price.max = '1000000';
 address.required = true;
 
 // Синхронизация полей форм
+window.synchronizeFields(timeOption, timeoutOption, ['12', '13', '14'], ['12', '13', '14'], 'value');
 
-window.synchronizeFields(timeOption, timeoutOption, 'value');
+window.synchronizeFields(roomNumber, capacity, ['1', '2', '2'], ['1', '2', '2'], 'value');
 
-window.synchronizeFields(timeoutOption, timeOption, 'value');
+window.synchronizeFields(type, price, ['1000', '0', '10000'], ['1000', '0', '10000'], 'min');
 
-window.synchronizeFields(roomNumber, capacity, 'value');
-
-window.synchronizeFields(capacity, roomNumber, 'value');
-
-window.synchronizeFields(type, price, 'min');
-
-window.synchronizeFields(type, price, 'value');
+window.synchronizeFields(type, price, ['1000', '0', '10000'], ['1000', '0', '10000'], 'value');
