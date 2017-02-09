@@ -1,5 +1,6 @@
 'use strict';
-var initializePins = function () {
+
+window.initializePins = function () {
   var tokyoMap = document.querySelector('.tokyo__pin-map'); /* Переменная для блока, содержащего указатели */
   var pin = document.querySelectorAll('.pin'); // Переменная для указателей
 
@@ -74,10 +75,11 @@ var initializePins = function () {
 /* АЛГОРИТМ работы функции */
   // Вызываем функцию для определения наличия активного указателя на странице и присвоения каждому соответствующего статуса aria-pressed
   toggleAriaPressed();
-  /* если у модального окна отсутствует класс invisible (соответственно, оно открыто),
-   реализовываем его закрытие по нажатию esc, при этом диалоговое окно может быть не в фокусе.
+  /* ЕСЛИ на странице есть элемент с классом pin--active (соответственно, имеется активный указатель pin),
+   то и модальное окно dialog тоже открыто.
+   Реализовываем его закрытие по нажатию esc, при этом диалоговое окно может быть не в фокусе.
    Вместе с этим происходит деактивация активного указателя и переопределение его статуса aria-pressed на false */
-  if (!document.querySelector('.invisible')) {
+  if (document.querySelector('.pin--active')) {
     document.addEventListener('keydown', function (e) {
       if (deactivatingEvent(e)) {
         disableActivePin();
