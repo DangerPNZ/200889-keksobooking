@@ -70,7 +70,7 @@ window.initializePins = function () {
 // Также открывает модальное окно и переключает значение аттрибута aria-pressed.
   var activatePin = (function () {
     return function (e) {
-      if (e.target.className === 'pin') {
+      if (e.target.className === 'pin' || 'pin  pin__main') {
         disableActivePin();
         e.target.classList.add('pin--active');
         setDialogClassInvisible('remove');
