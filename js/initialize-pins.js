@@ -46,6 +46,14 @@
         determineAriaPressed(pin[i]);
       }
     };
+//  функция, определяющая скрыто диалоговое окно, или показано
+    var toggleAriaHidden = function () {
+      if (dialog.classList.contains('invisible')) {
+        dialog.setAttribute('aria-hidden', true);
+      } else {
+        dialog.setAttribute('aria-hidden', false);
+      }
+    };
 
 // функция для управления отображением диалогового окна
     var setDialogClassInvisible = function (action) {
@@ -58,22 +66,28 @@
       setDialogClassInvisible('add');
   // динамическое изменение статуса активного (нажатого) указателя (aria-pressed) при удалении всех активных указателей
       toggleAriaPressed();
+  // динамически изменяем статус aria-hidden диалогового окна
+      toggleAriaHidden();
     };
 
 // функция для активации выбранного указателя, деактивации ранее выбранного.
-// Также открывает модальное окно и переключает значение аттрибута aria-pressed.
+// Также открывает модальное окно и переключает значение аттрибута aria-pressed и aria-hidden.
     var activatePin = function (e) {
       disableActivePin();
       e.target.closest('.pin').classList.add('pin--active');
       setDialogClassInvisible('remove');
     // динамическое переключение статуса (aria-pressed) при переключении активного указателя
       toggleAriaPressed();
+   // динамически изменяем статус aria-hidden диалогового окна
+      toggleAriaHidden();
     };
 
 
 /* АЛГОРИТМ работы функции */
   // Вызываем функцию для определения наличия активного указателя на странице и присвоения каждому соответствующего статуса aria-pressed
     toggleAriaPressed();
+ // Вызываем функцию, которая определит, скрыто диалоговое окно, или показано
+    toggleAriaHidden();
   /* ЕСЛИ на странице есть элемент с классом pin--active (соответственно, имеется активный указатель pin),
    то и модальное окно dialog тоже открыто.
    Реализовываем его закрытие по нажатию esc, при этом диалоговое окно может быть не в фокусе.
@@ -85,18 +99,13 @@
           setDialogClassInvisible('add');
         // динамическое изменение статуса активного (нажатого) указателя (aria-pressed) при удалении всех активных указателей
           toggleAriaPressed();
+        // динамически изменяем статус aria-hidden диалогового окна
+          toggleAriaHidden();
         }
       });
     }
   // Активизация активного указателя по клику
     tokyoMap.addEventListener('click', function (e) {
-      if (e.target.className === 'rounded') {
-        disableActivePin();
-        e.target.parentNode.classList.add('pin--active');
-        setDialogClassInvisible('remove');
-      // динамическое переключение статуса (aria-pressed) при переключении активного указателя
-        toggleAriaPressed();
-      }
       activatePin(e);
     });
 
