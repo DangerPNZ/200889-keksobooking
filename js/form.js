@@ -16,6 +16,9 @@
 // Вызываем функцию управления указателями pin и всеми связанными с неми операциями
   window.initializePins();
 
+// Вызываем функцию скрытия.показа диалогового окна
+  window.showCard();
+
 // Валидация полей формы
   title.required = true;
   title.minLength = '30';
@@ -35,5 +38,4 @@
 
   window.synchronizeFields(type, price, ['1000', '0', '10000'], ['1000', '0', '10000'], 'min');
 
-  window.synchronizeFields(type, price, ['1000', '0', '10000'], ['1000', '0', '10000'], 'value');
 })();
