@@ -34,13 +34,23 @@ window.showCard = (function () {
       dialog.classList[action]('invisible');
     };
 
+   // объявляем коллбек (для избежания трудночитаемости кода)
+    var returnPinFocus = function () {
+      var activePin = document.querySelector('.pin--active');
+      activePin.focus();
+    };
+
     // закрытие диалогового окна и переключение статуса aria-hidden
-    var deactivateDialog = function () {
+    // проверяет наличие переданного параметром коллбека и, если коллбек был передан, вызывает его в нужный момент
+    var deactivateDialogAndPin = function (callback) {
       setDialogClassInvisible('add');
       // динамически изменяем статус aria-hidden диалогового окна
       toggleAriaHidden();
       var activePin = document.querySelector('.pin--active');
       if (activePin) {
+        if (callback) {
+          callback();
+        }
         activePin.classList.remove('pin--active');
         activePin.setAttribute('aria-pressed', false);
       }
@@ -54,20 +64,21 @@ window.showCard = (function () {
     // !!!
     document.addEventListener('keydown', function (e) {
       if (deactivatingEvent(e)) {
-        deactivateDialog();
+        deactivateDialogAndPin();
       }
     });
 
 
     // закрытие диалогового окна и переключение статуса aria-hidden по клику
     dialogClose.addEventListener('click', function () {
-      deactivateDialog();
+      deactivateDialogAndPin();
     });
 
     // закрытие диалогового окна и переключение статуса aria-hidden по нажатию escape
     dialogClose.addEventListener('keydown', function (e) {
       if (activatingEvent(e)) {
-        deactivateDialog();
+        // Вызов коллбека
+        deactivateDialogAndPin(returnPinFocus);
       }
     });
 
