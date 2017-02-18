@@ -82,6 +82,10 @@ window.initializePins = (function () {
     tokyoMap.addEventListener('keydown', function (e) {
       if (activatingEvent(e)) {
         activatePinAndDialog(e);
+        window.callbackKeydownPin = function () {
+          var lastActivePin = e.target.closest('.pin');
+          lastActivePin.focus();
+        };
       }
     });
 
