@@ -12,9 +12,20 @@
   var type = document.querySelector('#type');
   var roomNumber = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
+// Коллбек обносторонней синхронизации по значению value
+  var syncValues = function (element, value) {
+    element.value = value;
+  };
+// Коллбек односторонней синхронизации по значению min
+  var syncValueAndMin = function (element, value) {
+    element.min = value;
+  };
 
 // Вызываем функцию управления указателями pin и всеми связанными с неми операциями
   window.initializePins();
+
+// Вызываем функцию скрытия.показа диалогового окна
+  window.showCard();
 
 // Валидация полей формы
   title.required = true;
@@ -29,11 +40,11 @@
   address.required = true;
 
 // Синхронизация полей форм
-  window.synchronizeFields(timeOption, timeoutOption, ['12', '13', '14'], ['12', '13', '14'], 'value');
+  window.synchronizeFields(timeOption, timeoutOption, ['12', '13', '14'], ['12', '13', '14'], syncValues);
+  window.synchronizeFields(timeoutOption, timeOption, ['12', '13', '14'], ['12', '13', '14'], syncValues);
+  window.synchronizeFields(roomNumber, capacity, ['1', '2', '2'], ['1', '2', '2'], syncValues);
+  window.synchronizeFields(capacity, roomNumber, ['1', '2', '2'], ['1', '2', '2'], syncValues);
+  window.synchronizeFields(type, price, ['1000', '0', '10000'], ['1000', '0', '10000'], syncValues);
+  window.synchronizeFields(type, price, ['1000', '0', '10000'], ['1000', '0', '10000'], syncValueAndMin);
 
-  window.synchronizeFields(roomNumber, capacity, ['1', '2', '2'], ['1', '2', '2'], 'value');
-
-  window.synchronizeFields(type, price, ['1000', '0', '10000'], ['1000', '0', '10000'], 'min');
-
-  window.synchronizeFields(type, price, ['1000', '0', '10000'], ['1000', '0', '10000'], 'value');
 })();
