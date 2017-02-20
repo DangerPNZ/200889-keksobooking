@@ -44,7 +44,7 @@
   window.synchronizeFields(timeoutOption, timeOption, ['12', '13', '14'], ['12', '13', '14'], syncValues);
   window.synchronizeFields(roomNumber, capacity, ['1', '2', '2'], ['1', '2', '2'], syncValues);
   window.synchronizeFields(capacity, roomNumber, ['1', '2', '2'], ['1', '2', '2'], syncValues);
-
+  window.synchronizeFields(type, price, ['1000', '0', '10000'], ['1000', '0', '10000'], syncValues);
   window.synchronizeFields(type, price, ['1000', '0', '10000'], ['1000', '0', '10000'], syncValueAndMin);
 
 })();
