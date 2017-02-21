@@ -69,9 +69,12 @@
       </div>
       <div class="tokyo__pin-map">
         <div class="pin  pin__main" role="button" tabindex="2"><img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44"></div>
-        <div class="pin  pin--active" role="button" tabindex="2" style="left: 700px;top: 350px"><img src="img/avatars/avatar.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
-        <div class="pin" role="button" tabindex="1" style="left: 400px;top: 400px"><img src="img/avatars/simpson.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
-        <div class="pin" role="button" tabindex="1"><img src="img/avatars/default.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+        <!-- шаблон для отрисовки пинов -->
+        <template id="pin-template">
+          <div class="pin">
+            <img src="" alt="" class="rounded" width="40" height="40">
+          </div>
+        </template>
       </div>
       <div class="dialog" role="dialog" aria-labelledby="lodge__title" aria-describedby="lodge__description" tabindex="2">
         <div class="dialog__title"><img src="img/avatars/avatar.png" alt="Avatar" width="70" height="70">
@@ -257,6 +260,7 @@
       </nav>
     </div>
   </footer>
+  <script src="js/load.js"></script>
   <script src="js/show-card.js"></script>
   <script src="js/initialize-pins.js"></script>
   <script src="js/synchronize-fields.js"></script>
