@@ -1,14 +1,28 @@
 'use strict';
 
 window.load = (function () {
-  return function (url, onLoad) {
+  var errorHandler = function (err) {
+    window.console.log(err);
+  };
+  return function (url, onLoad, onError) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.addEventListener('load', function (e) {
-      if (e.target.status === 200) {
-        onLoad(JSON.parse(e.target.response));
+    if (typeof onError === 'function') {
+      errorHandler = onError;
+    }
+
+    xhr.addEventListener('load', function (evt) {
+      if (evt.target.status >= 400) {
+        errorHandler('Failed to load data. Server returned status: ' + evt.target.status);
+      } else if (evt.target.status >= 200) {
+        onLoad(evt.target.response);
       }
     });
+
+    xhr.addEventListener('error', errorHandler);
+    xhr.addEventListener('timeout', errorHandler);
+
+    xhr.responseType = 'json';
+    xhr.open('GET', url);
     xhr.send();
   };
 })();

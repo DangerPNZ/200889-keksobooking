@@ -17,7 +17,28 @@ window.initializePins = (function () {
     var activatingEvent = function (e) {
       return e.keyCode && e.keyCode === ENTER_KEY_CODE;
     };
-
+// функция рендеринга новых указателей, получает данные из xhr
+    var renderPins = function (data) {
+      var templateElement = document.querySelector('#pin-template');
+      var elementToClone = templateElement.content.querySelector('.pin');
+      for (var i = 0; i < 3; i++) {
+        var newElement = elementToClone.cloneNode(true);
+        var img = newElement.querySelector('img');
+        newElement.setAttribute('index-pin', String(i));
+        newElement.setAttribute('role', 'button');
+        newElement.setAttribute('tabindex', String(i + 1));
+        if (newElement.classList.contains('pin--active')) {
+          newElement.setAttribute('aria-pressed', 'true');
+        } else {
+          newElement.setAttribute('aria-pressed', 'false');
+        }
+        newElement.style.position = 'absolute';
+        newElement.style.top = data[i].location.y + 'px';
+        newElement.style.left = data[i].location.x + 'px';
+        img.src = data[i].author.avatar;
+        tokyoMap.appendChild(newElement);
+      }
+    };
 // функция для определения активности pin и присвоения соответствующего статуса aria-pressed для каждого указателя
     var determineAriaPressed = function (element) {
       if (element.classList.contains('pin--active')) {
@@ -56,6 +77,8 @@ window.initializePins = (function () {
 
 
 /* АЛГОРИТМ работы функции */
+
+    window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data', renderPins);
 
   // Вызываем функцию для определения наличия активного указателя на странице и присвоения каждому соответствующего статуса aria-pressed
     toggleAriaPressed();
